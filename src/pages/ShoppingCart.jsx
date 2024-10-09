@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShoppingCart = ({ cart, removeFromCart }) => {
+const ShoppingCart = ({ cart, removeFromCart, onBackToSearch }) => {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
@@ -15,6 +15,7 @@ const ShoppingCart = ({ cart, removeFromCart }) => {
         </div>
       ))}
       <h3>Total: ${total.toFixed(2)}</h3>
+      <button onClick={onBackToSearch}>Volver a la búsqueda</button>
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import ProductSearch from './components/ProductSearch';
-import ProductDetails from './components/ProductDetails';
-import ShoppingCart from './components/ShoppingCart';
+import ProductSearch from './pages/ProductSearch';
+import ProductDetails from './pages/ProductDetails';
+import ShoppingCart from './pages/ShoppingCart';
+import './App.css'
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -25,6 +26,11 @@ function App() {
     setSelectedProduct(null);
   };
 
+  const handleBackToSearch = () => {
+    setShowCart(false);
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="App">
       <header>
@@ -35,7 +41,11 @@ function App() {
       </header>
 
       {showCart ? (
-        <ShoppingCart cart={cart} removeFromCart={removeFromCart} />
+        <ShoppingCart 
+          cart={cart} 
+          removeFromCart={removeFromCart} 
+          onBackToSearch={handleBackToSearch}
+        />
       ) : selectedProduct ? (
         <ProductDetails 
           productId={selectedProduct} 
@@ -43,7 +53,7 @@ function App() {
           addToCart={addToCart}
         />
       ) : (
-        <ProductSearch onProductSelect={handleProductSelect} />
+        <ProductSearch onProductSelect={handleProductSelect} addToCart={addToCart} />
       )}
     </div>
   );
