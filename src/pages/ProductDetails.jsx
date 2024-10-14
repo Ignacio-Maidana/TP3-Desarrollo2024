@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import '../styles/style.css';
 
 const ProductDetails = ({ productId, onBack, addToCart }) => {
   const [product, setProduct] = useState(null);
@@ -29,7 +30,7 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
   if (!product) return null;
 
   return (
-    <div>
+    <div className="product-details-container">
       <h2>{product.title}</h2>
       <Carousel>
         {product.pictures.map((picture) => (
@@ -38,8 +39,8 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
           </div>
         ))}
       </Carousel>
-      <p>Precio: ${product.price}</p>
-      <p>{product.description}</p>
+      <p className="product-price">Precio: ${product.price}</p>
+      <p className="product-description">{product.description}</p>
       
       <h3>Características del producto</h3>
       <table>
@@ -59,8 +60,12 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
         </tbody>
       </table>
 
-      <button onClick={() => addToCart(product)}>Añadir al Carrito</button>
-      <button onClick={onBack}>Volver a la búsqueda</button>
+      <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
+        Añadir al Carrito
+      </button>
+      <button className="back-btn" onClick={onBack}>
+        Volver a la búsqueda
+      </button>
     </div>
   );
 };

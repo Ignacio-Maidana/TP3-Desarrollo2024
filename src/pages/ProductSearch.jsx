@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/style.css'; // Importa el archivo CSS
 
 const ProductSearch = ({ onProductSelect, addToCart }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,16 +44,18 @@ const ProductSearch = ({ onProductSelect, addToCart }) => {
   };
 
   return (
-    <div>
-      <h2>Búsqueda de Productos</h2>
-      <form onSubmit={handleSearch}>
+    <div className="product-search-container">
+      <h2 className="search-title">Búsqueda de Productos</h2>
+      <form className="search-form" onSubmit={handleSearch}>
         <input
+          className="search-input"
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Ingrese el nombre del producto"
         />
         <select
+          className="category-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -63,20 +66,24 @@ const ProductSearch = ({ onProductSelect, addToCart }) => {
             </option>
           ))}
         </select>
-        <button type="submit">Buscar</button>
+        <button className="search-button" type="submit">Buscar</button>
       </form>
 
-      {loading && <p>Cargando...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <p className="loading-message">Cargando...</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <div>
+      <div className="product-list">
         {products.map((product) => (
-          <div key={product.id}>
-            <img src={product.thumbnail} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>Precio: ${product.price}</p>
-            <button onClick={() => onProductSelect(product.id)}>Ver Detalles</button>
-            <button onClick={() => addToCart(product)}>Añadir al Carrito</button>
+          <div key={product.id} className="product-item">
+            <img className="product-thumbnail" src={product.thumbnail} alt={product.title} />
+            <h3 className="product-title">{product.title}</h3>
+            <p className="product-price">Precio: ${product.price}</p>
+            <button className="details-button" onClick={() => onProductSelect(product.id)}>
+              Ver Detalles
+            </button>
+            <button className="add-to-cart-button" onClick={() => addToCart(product)}>
+              Añadir al Carrito
+            </button>
           </div>
         ))}
       </div>
