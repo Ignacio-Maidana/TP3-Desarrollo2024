@@ -200,6 +200,7 @@ s
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    justify-items: center;
 }
 
 /* Ítem de producto */
@@ -432,3 +433,20 @@ s
     text-decoration: underline;
   }
   
+  .not-found {
+    text-align: center;
+    margin: 50px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    grid-column: span 3;
+  }
+  
+  .not-found h2 {
+    color: #333;
+  }
+  
+  .not-found p {
+    color: #666;
+  }
