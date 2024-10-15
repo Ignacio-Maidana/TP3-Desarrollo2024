@@ -1,4 +1,5 @@
 import React from 'react';
+import CartItemList from '../components/CartiItemList';
 import '../styles/style.css'; // Importa el archivo CSS
 
 const ShoppingCart = ({ cart, removeFromCart, onBackToSearch }) => {
@@ -8,16 +9,9 @@ const ShoppingCart = ({ cart, removeFromCart, onBackToSearch }) => {
     <div className="shopping-cart-container">
       <h2 className="cart-title">Carrito de Compras</h2>
       <div className="cart-items">
-        {cart.map((item) => (
-          <div key={item.id} className="cart-item">
-            <img className="cart-item-thumbnail" src={item.thumbnail} alt={item.title} />
-            <span className="cart-item-title">{item.title}</span>
-            <span className="cart-item-price">${item.price}</span>
-            <button className="remove-button" onClick={() => removeFromCart(item.id)}>
-              Eliminar
-            </button>
-          </div>
-        ))}
+      <CartItemList 
+        cart={cart} 
+        removeFromCart={removeFromCart} />
       </div>
       <h3 className="cart-total">Total: ${total.toFixed(2)}</h3>
       <button className="back-to-search-button" onClick={onBackToSearch}>

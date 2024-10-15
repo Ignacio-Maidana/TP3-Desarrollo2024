@@ -34,7 +34,7 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
       <h2>{product.title}</h2>
       <Carousel>
         {product.pictures.map((picture) => (
-          <div key={picture.id}>
+          <div className='carrousel' key={picture.id}>
             <img src={picture.url} alt={product.title} />
           </div>
         ))}

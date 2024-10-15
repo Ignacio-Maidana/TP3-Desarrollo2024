@@ -9,23 +9,29 @@
     border-radius: 8px;
 }
 
+.carrousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+}
+
+.carrousel img {
+  max-width: 500px;
+  height: auto;
+}
+
+.carousel {
+  display: flex;
+  justify-content: center;
+}
+
 /* Título del producto */
 .product-details-container h2 {
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
     text-align: center;
-}
-s
-/* Estilo del carrusel */
-.carousel .slide img {
-    border-radius: 8px;
-    max-height: 500px;
-    object-fit: contain;
-}
-
-.carousel .control-arrow {
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Precio */

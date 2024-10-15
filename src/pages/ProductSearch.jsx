@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NotFound from '../components/NotFound';
 import '../styles/style.css'; // Importa el archivo CSS
+import ProductList from '../components/ProductList';
 
 const ProductSearch = ({ onProductSelect, addToCart }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -73,25 +73,11 @@ const ProductSearch = ({ onProductSelect, addToCart }) => {
       {loading && <p className="loading-message">Cargando...</p>}
       {error && <p className="error-message">{error}</p>}
 
-      <div className="product-list">
-        {products.length === 0 ? ( // Si no hay productos, muestra NotFound
-          <NotFound />
-        ) : (
-          products.map((product) => (
-            <div key={product.id} className="product-item">
-              <img className="product-thumbnail" src={product.thumbnail} alt={product.title} />
-              <h3 className="product-title">{product.title}</h3>
-              <p className="product-price">Precio: ${product.price}</p>
-              <button className="details-button" onClick={() => onProductSelect(product.id)}>
-                Ver Detalles
-              </button>
-              <button className="add-to-cart-button" onClick={() => addToCart(product)}>
-                Añadir al Carrito
-              </button>
-            </div>
-          ))
-        )}
-      </div>
+      <ProductList
+        products={products}
+        onProductSelect={onProductSelect}
+        addToCart={addToCart}
+      />
     </div>
   );
 };
