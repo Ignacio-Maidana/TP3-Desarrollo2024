@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/style.css'; // Importa el archivo CSS
+import '../styles/style.css';
 import ProductList from '../components/ProductList';
 
-const ProductSearch = ({ onProductSelect, addToCart }) => {
+const ProductSearch = ({ addToCart }) => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -44,6 +46,10 @@ const ProductSearch = ({ onProductSelect, addToCart }) => {
     }
   };
 
+  const handleProductSelect = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="product-search-container">
       <h2 className="search-title">Búsqueda de Productos</h2>
@@ -75,7 +81,7 @@ const ProductSearch = ({ onProductSelect, addToCart }) => {
 
       <ProductList
         products={products}
-        onProductSelect={onProductSelect}
+        onProductSelect={handleProductSelect}
         addToCart={addToCart}
       />
     </div>

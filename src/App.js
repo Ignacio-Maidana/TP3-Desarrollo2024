@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductSearch from './pages/ProductSearch';
 import ProductDetails from './pages/ProductDetails';
 import ShoppingCart from './pages/ShoppingCart';
-import Toast from './components/Toast'; // Importa el componente Toast
+import Toast from './components/Toast';
 import Footer from './components/Footer';
 import './App.css';
 
 function App() {
   const [cart, setCart] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showCart, setShowCart] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState(''); // 'success' o 'error'
+  const [toastType, setToastType] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
 
   const addToCart = (product) => {
@@ -19,7 +18,7 @@ function App() {
     setToastMessage('Producto añadido al carrito!');
     setToastType('success');
     setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 3000); // Ocultar toast después de 3 segundos
+    setTimeout(() => setToastVisible(false), 1500);
   };
 
   const removeFromCart = (productId) => {
@@ -27,55 +26,41 @@ function App() {
     setToastMessage('Producto eliminado del carrito!');
     setToastType('error');
     setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 3000); // Ocultar toast después de 3 segundos
-  };
-
-  const handleProductSelect = (productId) => {
-    setSelectedProduct(productId);
-    setShowCart(false);
-  };
-
-  const handleBack = () => {
-    setSelectedProduct(null);
-  };
-
-  const handleBackToSearch = () => {
-    setShowCart(false);
-    setSelectedProduct(null);
+    setTimeout(() => setToastVisible(false), 1500);
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1 className="app-title">E-commerce Mercado Libre</h1>
-        <button className="cart-button" onClick={() => setShowCart(!showCart)}>
-          Carrito ({cart.length})
-        </button>
-      </header>
+    <Router>
+      <div className="app-container">
+        <header className="app-header">
+          <h1 className="app-title">E-commerce Mercado Libre</h1>
+          <Link to="/cart" className="cart-button">
+            Carrito ({cart.length})
+          </Link>
+        </header>
 
-      {/* Muestra el toast si es visible */}
-      {toastVisible && <Toast message={toastMessage} type={toastType} />}
+        {toastVisible && <Toast message={toastMessage} type={toastType} />}
 
-      <main className="app-main">
-        {showCart ? (
-          <ShoppingCart
-            cart={cart}
-            removeFromCart={removeFromCart}
-            onBackToSearch={handleBackToSearch}
-          />
-        ) : selectedProduct ? (
-          <ProductDetails
-            productId={selectedProduct}
-            onBack={handleBack}
-            addToCart={addToCart}
-          />
-        ) : (
-          <ProductSearch onProductSelect={handleProductSelect} addToCart={addToCart} />
-        )}
-      </main>
+        <main className="app-main">
+          <Routes>
+            <Route 
+              path="/" 
+              element={<ProductSearch addToCart={addToCart} />} 
+            />
+            <Route 
+              path="/product/:productId" 
+              element={<ProductDetails addToCart={addToCart} />} 
+            />
+            <Route 
+              path="/cart" 
+              element={<ShoppingCart cart={cart} removeFromCart={removeFromCart} />} 
+            />
+          </Routes>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import '../styles/style.css';
 
-const ProductDetails = ({ productId, onBack, addToCart }) => {
+const ProductDetails = ({ addToCart }) => {
+  const { productId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,6 +27,10 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
 
     fetchProductDetails();
   }, [productId]);
+
+  const handleBack = () => {
+    navigate('/');
+  };
 
   if (loading) return <p>Cargando detalles del producto...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -63,7 +70,7 @@ const ProductDetails = ({ productId, onBack, addToCart }) => {
       <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
         Añadir al Carrito
       </button>
-      <button className="back-btn" onClick={onBack}>
+      <button className="back-btn" onClick={handleBack}>
         Volver a la búsqueda
       </button>
     </div>
