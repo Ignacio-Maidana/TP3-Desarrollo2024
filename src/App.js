@@ -41,7 +41,7 @@ function App() {
 
         {toastVisible && <Toast message={toastMessage} type={toastType} />}
 
-        <main className="app-main">
+        <main className="app-main" id='main'>
           <Routes>
             <Route 
               path="/" 
